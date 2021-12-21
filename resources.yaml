@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  SimulationInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-062f7200baf2fa504
+      InstanceType: t2.micro
+      KeyName: vockey
+      SecurityGroupIds:
+        - !Ref AllowSSHSecurityGroup
+      Tags:
+        - Key: "Name"
+          Value: "Cloud VHDL Simulation"
+
+  AllowSSHSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allows SSH
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: "Name"
+          Value: "SSH Only"
